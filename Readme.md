@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Asya Nick](https://up.htmlacademy.ru/javascript/22/user/1458863).
-* Наставник: `Неизвестно`.
+* Наставник: [Максим Деев](https://htmlacademy.ru/profile/id685777).
 
 ---
 
