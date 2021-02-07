@@ -3,20 +3,21 @@
 const getRandomNumber = function (min, max) {
   if (min < 0 || min > max) {
     alert('Неправильный ввод данных');
+    return -1;
   }
 
-  return Math.floor(Math.random() * (max - min)) + min;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-getRandomNumber();
+getRandomNumber(1, 11);
 
 const getRandomCoordinates = function (x, y, digits) {
-  let number = Math.random() * (y - x) + x;
-  if (x === y || x > y) {
+  if (x >= y) {
     alert('Неправильный ввод данных');
+    return -1;
   }
 
-  return number.toFixed(digits);
+  return (Math.random() * (y - x) + x).toFixed(digits);
 }
 
-getRandomCoordinates();
+getRandomCoordinates(1, 100, 2);
