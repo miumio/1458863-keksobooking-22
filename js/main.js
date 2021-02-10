@@ -62,7 +62,13 @@ const shuffle = (arr) => {
     arr[k] = arr[i];
     arr[i] = temp;
   }
-  return arr;
+  return arr
+};
+
+const getNotRepeatItem = (newArr) => {
+  shuffle(newArr);
+  const randomNumber = getRandomNumber(0, newArr.length - 1);
+  return newArr.slice(randomNumber);
 };
 
 const createObject = () => {
@@ -81,7 +87,7 @@ const createObject = () => {
       guests: getRandomNumber(0, 100),
       checkin: getRandomArrayElement(CHECK_TIMES),
       checkout: getRandomArrayElement(CHECK_TIMES),
-      features: shuffle(OBJECT_FEATURES),
+      features: getNotRepeatItem(OBJECT_FEATURES),
       description: 'строка — описание помещения',
       photos: getRandomArrayElement(OBJECT_PHOTOS),
     },
