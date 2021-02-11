@@ -2,7 +2,6 @@
 
 const getRandomNumber = function (min, max) {
   if (min < 0 || min > max) {
-    alert('Неправильный ввод данных');
     return -1;
   }
 
@@ -13,7 +12,6 @@ getRandomNumber(1, 11);
 
 const getRandomCoordinates = function (x, y, digits) {
   if (x >= y) {
-    alert('Неправильный ввод данных');
     return -1;
   }
 
@@ -22,7 +20,7 @@ const getRandomCoordinates = function (x, y, digits) {
 
 getRandomCoordinates(1, 100, 2);
 
-const TYPES_OF_ObJECT = [
+const TYPES_OF_OBJECT = [
   'palace',
   'flat',
   'house',
@@ -50,7 +48,7 @@ const OBJECT_PHOTOS = [
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
 ];
 
-const getRandomArrayElement = (array) => {
+const getRandomArray = (array) => {
   return array[getRandomNumber(0, array.length - 1)];
 };
 
@@ -62,13 +60,14 @@ const shuffle = (arr) => {
     arr[k] = arr[i];
     arr[i] = temp;
   }
-  return arr
+  return arr;
 };
 
-const getNotRepeatItem = (newArr) => {
-  shuffle(newArr);
-  const randomNumber = getRandomNumber(0, newArr.length - 1);
-  return newArr.slice(randomNumber);
+const getNotRepeatItem = (arr) => {
+  const randomNumber = getRandomNumber(0, arr.length - 1);
+  const newArray = arr.slice(0, randomNumber);
+  shuffle(newArray);
+  return newArray;
 };
 
 const createObject = () => {
@@ -82,14 +81,14 @@ const createObject = () => {
       title: 'строка — заголовок предложения',
       address: 'x: ' + locationX  + ', y: ' + locationY,
       price: getRandomNumber(0, 1000000000),
-      type: getRandomArrayElement(TYPES_OF_ObJECT),
+      type: getRandomArray(TYPES_OF_OBJECT),
       rooms: getRandomNumber(0, 100),
       guests: getRandomNumber(0, 100),
-      checkin: getRandomArrayElement(CHECK_TIMES),
-      checkout: getRandomArrayElement(CHECK_TIMES),
+      checkin: getRandomArray(CHECK_TIMES),
+      checkout: getRandomArray(CHECK_TIMES),
       features: getNotRepeatItem(OBJECT_FEATURES),
       description: 'строка — описание помещения',
-      photos: getRandomArrayElement(OBJECT_PHOTOS),
+      photos: getNotRepeatItem(OBJECT_PHOTOS),
     },
     location: {
       x: locationX,
@@ -100,3 +99,4 @@ const createObject = () => {
 
 const createObjectList = new Array(10).fill(null).map(() => createObject());
 createObjectList;
+// console.log(createObjectList);
