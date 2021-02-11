@@ -71,8 +71,8 @@ const getNotRepeatItem = (arr) => {
 };
 
 const createObject = () => {
-  let locationX = getRandomCoordinates(35.65000, 35.70000, 5);
-  let locationY = getRandomCoordinates(139.70000, 139.80000, 5);
+  const locationX = getRandomCoordinates(35.65000, 35.70000, 5);
+  const locationY = getRandomCoordinates(139.70000, 139.80000, 5);
   return {
     author: {
       avatar: 'img/avatars/user0' + getRandomNumber(1, 8) + '.png',
