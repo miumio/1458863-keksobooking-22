@@ -30,4 +30,18 @@ const shuffle = (arr) => {
 };
 shuffle();
 
-export {getRandomNumber, getRandomCoordinates, shuffle};
+const getRandomArrayElement = (array) => {
+  return array[getRandomNumber(0, array.length - 1)];
+};
+getRandomArrayElement();
+
+const getNotRepeatItem = (arr) => {
+  const randomNumber = getRandomNumber(0, arr.length - 1);
+  const newArray = arr.slice(0, randomNumber);
+  shuffle(newArray);
+  return newArray;
+};
+
+getNotRepeatItem();
+
+export {getRandomNumber, getRandomCoordinates, shuffle, getRandomArrayElement, getNotRepeatItem};
