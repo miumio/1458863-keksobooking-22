@@ -6,8 +6,6 @@ const getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-getRandomNumber(1, 11);
-
 const getRandomCoordinates = function (x, y, digits) {
   if (x >= y) {
     return -1;
@@ -16,7 +14,9 @@ const getRandomCoordinates = function (x, y, digits) {
   return (Math.random() * (y - x) + x).toFixed(digits);
 }
 
-getRandomCoordinates(1, 100, 2);
+const getRandomArrayElement = (array) => {
+  return array[getRandomNumber(0, array.length - 1)];
+};
 
 const shuffle = (arr) => {
   let temp;
@@ -28,12 +28,6 @@ const shuffle = (arr) => {
   }
   return arr;
 };
-shuffle();
-
-const getRandomArrayElement = (array) => {
-  return array[getRandomNumber(0, array.length - 1)];
-};
-getRandomArrayElement();
 
 const getNotRepeatItem = (arr) => {
   const randomNumber = getRandomNumber(0, arr.length - 1);
@@ -41,7 +35,5 @@ const getNotRepeatItem = (arr) => {
   shuffle(newArray);
   return newArray;
 };
-
-getNotRepeatItem();
 
 export {getRandomNumber, getRandomCoordinates, shuffle, getRandomArrayElement, getNotRepeatItem};
