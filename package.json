@@ -11,6 +11,10 @@
     "url": "https://github.com/htmlacademy-javascript/1458863-keksobooking-22/issues"
   },
   "devDependencies": {
+    "@babel/cli": "^7.12.16",
+    "@babel/core": "^7.12.16",
+    "@babel/node": "^7.12.16",
+    "@babel/preset-env": "^7.12.16",
     "browser-sync": "2.26.14",
     "eslint": "7.18.0",
     "eslint-config-htmlacademy": "2.0.0"
