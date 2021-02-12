@@ -48,7 +48,7 @@ const OBJECT_PHOTOS = [
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
 ];
 
-const getRandomArray = (array) => {
+const getRandomArrayElement = (array) => {
   return array[getRandomNumber(0, array.length - 1)];
 };
 
@@ -81,11 +81,11 @@ const createObject = () => {
       title: 'строка — заголовок предложения',
       address: 'x: ' + locationX  + ', y: ' + locationY,
       price: getRandomNumber(0, 1000000000),
-      type: getRandomArray(TYPES_OF_OBJECT),
+      type: getRandomArrayElement(TYPES_OF_OBJECT),
       rooms: getRandomNumber(0, 100),
       guests: getRandomNumber(0, 100),
-      checkin: getRandomArray(CHECK_TIMES),
-      checkout: getRandomArray(CHECK_TIMES),
+      checkin: getRandomArrayElement(CHECK_TIMES),
+      checkout: getRandomArrayElement(CHECK_TIMES),
       features: getNotRepeatItem(OBJECT_FEATURES),
       description: 'строка — описание помещения',
       photos: getNotRepeatItem(OBJECT_PHOTOS),
