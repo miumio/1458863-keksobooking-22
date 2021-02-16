@@ -38,7 +38,7 @@ const createObject = () => {
     offer: {
       title: 'строка — заголовок предложения',
       address: 'x: ' + locationX  + ', y: ' + locationY,
-      price: getRandomNumber(0, 1000000000),
+      price: getRandomNumber(0, 100000),
       type: getRandomArrayElement(TYPES_OF_OBJECT),
       rooms: getRandomNumber(0, 100),
       guests: getRandomNumber(0, 100),
@@ -55,4 +55,8 @@ const createObject = () => {
   };
 };
 
-export {createObject};
+const quantityObjects = 1;
+
+const createObjectsList = () => new Array(quantityObjects).fill(null).map(() => createObject());
+
+export {createObjectsList};
