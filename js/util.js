@@ -1,4 +1,4 @@
-const getRandomNumber = function (min, max) {
+const getRandomNumber = (min, max)  => {
   if (min < 0 || min > max) {
     return -1;
   }
@@ -6,7 +6,7 @@ const getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-const getRandomCoordinates = function (x, y, digits) {
+const getRandomCoordinates = (x, y, digits) => {
   if (x >= y) {
     return -1;
   }
@@ -17,6 +17,10 @@ const getRandomCoordinates = function (x, y, digits) {
 const getRandomArrayElement = (array) => {
   return array[getRandomNumber(0, array.length - 1)];
 };
+
+// const getRandomObjectItem = (object) => {
+//   return object[Object.keys(object)[Math.floor(Math.random() * Object.keys(object).length)]];
+// };
 
 const shuffle = (arr) => {
   let temp;

@@ -1,5 +1,2 @@
-import {createObject} from './data.js';
+import './similar-objects-list.js';
 
-const createObjectList = new Array(10).fill(null).map(() => createObject());
-createObjectList;
-// console.log(createObjectList);
