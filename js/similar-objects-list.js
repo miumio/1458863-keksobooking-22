@@ -38,7 +38,7 @@ const getRussianTypesOfObject = (value) => {
   }
 }
 
-const getTextStringInGuests = (number) => number === 1 ? 'гостя' : 'гостей';
+const getTextInGuests = (number) => number === 1 ? 'гостя' : 'гостей';
 
 similarObjects.forEach((object) => {
   const objectElement = similarObjectTemplate.cloneNode(true);
@@ -47,7 +47,7 @@ similarObjects.forEach((object) => {
   objectElement.querySelector('.popup__text--address').textContent = object.offer.address;
   objectElement.querySelector('.popup__text--price').textContent = `${object.offer.price}  ₽/ночь`;
   objectElement.querySelector('.popup__type').textContent = getRussianTypesOfObject(object.offer.type);
-  objectElement.querySelector('.popup__text--capacity').textContent = `${object.offer.rooms} ${getTextInRooms(object.offer.rooms)} для ${object.offer.guests} ${getTextStringInGuests(object.offer.guests)}`;
+  objectElement.querySelector('.popup__text--capacity').textContent = `${object.offer.rooms} ${getTextInRooms(object.offer.rooms)} для ${object.offer.guests} ${getTextInGuests(object.offer.guests)}`;
   objectElement.querySelector('.popup__text--time').textContent = `Заезд после ${object.offer.checkin}, выезд до ${object.offer.checkout}`;
   objectElement.querySelector('.popup__features').innerHTML = '';
   objectElement.querySelector('.popup__features').insertAdjacentHTML('beforeend', object.offer.features.map((feature) => `<li class="popup__feature popup__feature--${feature}"></li>`).join(' '));
