@@ -1,6 +1,6 @@
 import {createObjectsList} from './data.js';
 
-const similarListElement = document.querySelector('#map-canvas');
+// const similarListElement = document.querySelector('#map-canvas');
 const similarObjectTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
@@ -59,4 +59,4 @@ similarObjects.forEach((object) => {
   similarListFragment.appendChild(objectElement);
 });
 
-similarListElement.appendChild(similarListFragment);
+// similarListElement.appendChild(similarListFragment);
