@@ -10,7 +10,7 @@ for (let i = 0; i < fieldset.length; i++) {
 const filters = document.querySelector('.map__filters');
 filters.classList.add('ad-form--disabled');
 
-const select = filters.querySelectorAll('select');
-for (let i = 0; i < select.length; i++) {
-  select[i].setAttribute('disabled', '');
+const input = filters.querySelectorAll('select, fieldset');
+for (let i = 0; i < input.length; i++) {
+  input[i].setAttribute('disabled', '');
 }
