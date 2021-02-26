@@ -59,4 +59,5 @@ similarObjects.forEach((object) => {
   similarListFragment.appendChild(objectElement);
 });
 
+export {similarObjects, similarListFragment};
 // similarListElement.appendChild(similarListFragment);
