@@ -1,10 +1,12 @@
-import {similarObjects, similarListFragment, similarNodes} from './similar-objects-list.js';
+/* global L:readonly */
+
+import {similarObjects, getObject} from './similar-objects-list.js';
 
 const forms = document.querySelector('.ad-form, map__filters');
 const fieldset = forms.querySelectorAll('fieldset');
 const adress = document.querySelector('#address');
 
-const cityCenter = {
+const CITY_CENTER = {
   lat: '35.4137',
   lng: '139.4150',
 };
@@ -16,19 +18,17 @@ fieldset.forEach((element) => {
 });
 
 adress.setAttribute('readonly', '');
-
 const map = L.map('map-canvas')
-.on('load', () => {
-  console.log('Карта инициализирована');
-  adress.value = `${cityCenter.lat}, ${cityCenter.lng}`;
-  forms.classList.remove('ad-form--disabled');
-  fieldset.forEach((element) => {
-    element.removeAttribute('disabled', '');
-  });
-})
+  .on('load', () => {
+    adress.value = `${CITY_CENTER.lat}, ${CITY_CENTER.lng}`;
+    forms.classList.remove('ad-form--disabled');
+    fieldset.forEach((element) => {
+      element.removeAttribute('disabled', '');
+    });
+  })
   .setView({
-    lat: cityCenter.lat,
-    lng: cityCenter.lng,
+    lat: CITY_CENTER.lat,
+    lng: CITY_CENTER.lng,
   }, 10);
 
 L.tileLayer(
@@ -38,46 +38,45 @@ L.tileLayer(
   },
 ).addTo(map);
 
-const mainPinIcon = L.icon({
+const MAIN_PIN_ICON = L.icon({
   iconUrl: '../img/main-pin.svg',
   iconSize: [52, 52],
   iconAnchor: [26, 52],
 });
 
-const pinIcon = L.icon({
+const PIN_ICON = L.icon({
   iconUrl: '../img/pin.svg',
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
 
-const mainPin = L.marker(
+const MAIN_PIN = L.marker(
   {
-    lat: cityCenter.lat,
-    lng: cityCenter.lng,
+    lat: CITY_CENTER.lat,
+    lng: CITY_CENTER.lng,
   },
   {
     draggable: true,
-    icon: mainPinIcon,
+    icon: MAIN_PIN_ICON,
   },
 ).addTo(map);
 
-mainPin.on('moveend', (evt) => {
-  console.log(evt.target.getLatLng());
-  adress.value = evt.target.getLatLng();
+MAIN_PIN.on('moveend', (evt) => {
+  adress.value = `${evt.target.getLatLng().lat.toFixed(5)}, ${evt.target.getLatLng().lng.toFixed(5)}`;
 });
 
-similarObjects.forEach((object, i) => {
+similarObjects.forEach((object) => {
   const pin = L.marker(
     {
       lat: object.location.x,
       lng: object.location.y,
     },
     {
-      icon: pinIcon,
+      icon: PIN_ICON,
     },
   );
 
   pin
-  .addTo(map)
-  .bindPopup(similarNodes[i]);
+    .addTo(map)
+    .bindPopup(getObject(object));
 });
