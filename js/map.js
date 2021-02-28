@@ -1,4 +1,4 @@
-import {similarObjects, similarListFragment} from './similar-objects-list.js';
+import {similarObjects, similarListFragment, similarNodes} from './similar-objects-list.js';
 
 const forms = document.querySelector('.ad-form, map__filters');
 const fieldset = forms.querySelectorAll('fieldset');
@@ -66,7 +66,7 @@ mainPin.on('moveend', (evt) => {
   adress.value = evt.target.getLatLng();
 });
 
-similarObjects.forEach((object) => {
+similarObjects.forEach((object, i) => {
   const pin = L.marker(
     {
       lat: object.location.x,
@@ -79,5 +79,5 @@ similarObjects.forEach((object) => {
 
   pin
   .addTo(map)
-  .bindPopup(similarListFragment);
+  .bindPopup(similarNodes[i]);
 });
