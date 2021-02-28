@@ -1,6 +1,6 @@
 import {createObjectsList} from './data.js';
 
-const similarListElement = document.querySelector('#map-canvas');
+// const similarListElement = document.querySelector('#map-canvas');
 const similarObjectTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
@@ -40,7 +40,7 @@ const getRussianTypesOfObject = (value) => {
 
 const getTextInGuests = (number) => number === 1 ? 'гостя' : 'гостей';
 
-similarObjects.forEach((object) => {
+const getObject = (object) => {
   const objectElement = similarObjectTemplate.cloneNode(true);
 
   objectElement.querySelector('.popup__title').textContent = object.offer.title;
@@ -56,7 +56,11 @@ similarObjects.forEach((object) => {
   objectElement.querySelector('.popup__photos').insertAdjacentHTML('beforeend', object.offer.photos.map((photo) => `<img src="${photo}" class="popup__photo" width="45" height="40" alt="Фотография жилья"></img>`).join(' '));
   objectElement.querySelector('.popup__avatar').src = object.author.avatar;
 
-  similarListFragment.appendChild(objectElement);
+  return objectElement;
+}
+
+similarObjects.forEach((object) => {
+  similarListFragment.appendChild(getObject(object));
 });
 
-similarListElement.appendChild(similarListFragment);
+export {similarObjects, similarListFragment, getObject};

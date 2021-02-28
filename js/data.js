@@ -55,8 +55,8 @@ const createObject = () => {
   };
 };
 
-const quantityObjects = 1;
+const QUANTITY_OBJECT = 10;
 
-const createObjectsList = () => new Array(quantityObjects).fill(null).map(() => createObject());
+const createObjectsList = () => new Array(QUANTITY_OBJECT).fill(null).map(() => createObject());
 
 export {createObjectsList};
