@@ -2,8 +2,6 @@ const similarObjectTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
 
-const similarListFragment = document.createDocumentFragment();
-
 const getTextInRooms = (number) => {
   let string = ' комнат';
 
@@ -54,4 +52,4 @@ const getObject = (object) => {
   return objectElement;
 }
 
-export {similarListFragment, getObject};
+export {getObject};

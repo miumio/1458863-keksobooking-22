@@ -76,8 +76,8 @@ const createPins = (data) => {
       },
     );
     PIN
-    .addTo(map)
-    .bindPopup(getObject(object));
+      .addTo(map)
+      .bindPopup(getObject(object));
   });
 };
 
