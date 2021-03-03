@@ -1,14 +1,14 @@
 /* global L:readonly */
 
-import {similarObjects, getObject} from './similar-objects-list.js';
+import {getObject} from './similar-objects-list.js';
 
 const forms = document.querySelector('.ad-form, map__filters');
 const fieldset = forms.querySelectorAll('fieldset');
 const adress = document.querySelector('#address');
 
 const CITY_CENTER = {
-  lat: '35.4137',
-  lng: '139.4150',
+  lat: '35.68783',
+  lng: '139.75662',
 };
 
 forms.classList.add('ad-form--disabled');
@@ -44,12 +44,6 @@ const MAIN_PIN_ICON = L.icon({
   iconAnchor: [26, 52],
 });
 
-const PIN_ICON = L.icon({
-  iconUrl: '../img/pin.svg',
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
-});
-
 const MAIN_PIN = L.marker(
   {
     lat: CITY_CENTER.lat,
@@ -65,18 +59,26 @@ MAIN_PIN.on('moveend', (evt) => {
   adress.value = `${evt.target.getLatLng().lat.toFixed(5)}, ${evt.target.getLatLng().lng.toFixed(5)}`;
 });
 
-similarObjects.forEach((object) => {
-  const pin = L.marker(
-    {
-      lat: object.location.x,
-      lng: object.location.y,
-    },
-    {
-      icon: PIN_ICON,
-    },
-  );
-
-  pin
+const createPins = (data) => {
+  const PIN_ICON = L.icon({
+    iconUrl: '../img/pin.svg',
+    iconSize: [40, 40],
+    iconAnchor: [20, 40],
+  });
+  data.forEach(function(object) {
+    const PIN = L.marker(
+      {
+        lat: object.location.lat,
+        lng: object.location.lng,
+      },
+      {
+        icon: PIN_ICON,
+      },
+    );
+    PIN
     .addTo(map)
     .bindPopup(getObject(object));
-});
+  });
+};
+
+export {createPins};

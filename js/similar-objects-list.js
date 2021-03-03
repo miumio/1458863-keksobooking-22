@@ -1,16 +1,11 @@
-import {createObjectsList} from './data.js';
-
-// const similarListElement = document.querySelector('#map-canvas');
 const similarObjectTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
 
-const similarObjects = createObjectsList();
-
 const similarListFragment = document.createDocumentFragment();
 
 const getTextInRooms = (number) => {
-  let string = ' комнат';
+  let string = ' комнат';
 
   switch (number) {
     case 1:
@@ -59,8 +54,4 @@ const getObject = (object) => {
   return objectElement;
 }
 
-similarObjects.forEach((object) => {
-  similarListFragment.appendChild(getObject(object));
-});
-
-export {similarObjects, similarListFragment, getObject};
+export {similarListFragment, getObject};
