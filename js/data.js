@@ -1,6 +1,6 @@
 const URL = 'https://22.javascript.pages.academy/keksobooking/data';
 
-const errorMessage = () => {
+const createErrorMessage = () => {
   const popup = document.createElement('div');
 
   popup.textContent = '!WARNING! conection error';
@@ -19,7 +19,7 @@ const getData = (onSucces) => {
   .then((objects) => {
     onSucces(objects);
   })
-  .catch(() => {errorMessage()});
+  .catch(() => {createErrorMessage()});
 };
 
 
