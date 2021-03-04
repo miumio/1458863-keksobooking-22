@@ -1,4 +1,5 @@
-const URL = 'https://22.javascript.pages.academy/keksobooking/data';
+const URL_GET = 'https://22.javascript.pages.academy/keksobooking/data';
+const URL_SEND = 'https://22.javascript.pages.academy/keksobooking/';
 
 const createErrorMessage = () => {
   const popup = document.createElement('div');
@@ -14,13 +15,17 @@ const createErrorMessage = () => {
 };
 
 const getData = (onSucces) => {
-  fetch(URL)
+  fetch(URL_GET)
   .then((response) => response.json())
   .then((objects) => {
     onSucces(objects);
   })
   .catch(() => {createErrorMessage()});
 };
+
+const sendData = (form) => {
+
+}
 
 
 export {getData};

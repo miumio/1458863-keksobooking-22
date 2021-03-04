@@ -2,30 +2,20 @@
 
 import {getObject} from './similar-objects-list.js';
 import {getData} from './data.js';
-
-const forms = document.querySelector('.ad-form, map__filters');
-const fieldset = forms.querySelectorAll('fieldset');
-const adress = document.querySelector('#address');
+import {getOn} from './form.js';
 
 const CITY_CENTER = {
   lat: '35.68783',
   lng: '139.75662',
 };
 
-forms.classList.add('ad-form--disabled');
-
-fieldset.forEach((element) => {
-  element.setAttribute('disabled', '');
-});
+const adress = document.querySelector('#address');
 
 adress.setAttribute('readonly', '');
 const map = L.map('map-canvas')
   .on('load', () => {
     adress.value = `${CITY_CENTER.lat}, ${CITY_CENTER.lng}`;
-    forms.classList.remove('ad-form--disabled');
-    fieldset.forEach((element) => {
-      element.removeAttribute('disabled', '');
-    });
+    getOn();
   })
   .setView({
     lat: CITY_CENTER.lat,
