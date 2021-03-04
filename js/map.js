@@ -1,6 +1,7 @@
 /* global L:readonly */
 
 import {getObject} from './similar-objects-list.js';
+import {getData} from './data.js';
 
 const forms = document.querySelector('.ad-form, map__filters');
 const fieldset = forms.querySelectorAll('fieldset');
@@ -59,13 +60,15 @@ MAIN_PIN.on('moveend', (evt) => {
   adress.value = `${evt.target.getLatLng().lat.toFixed(5)}, ${evt.target.getLatLng().lng.toFixed(5)}`;
 });
 
+const PIN_ICON = L.icon({
+  iconUrl: '../img/pin.svg',
+  iconSize: [40, 40],
+  iconAnchor: [20, 40],
+});
+
 const createPins = (data) => {
-  const PIN_ICON = L.icon({
-    iconUrl: '../img/pin.svg',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
-  });
-  data.forEach(function(object) {
+
+  data.forEach((object) => {
     const PIN = L.marker(
       {
         lat: object.location.lat,
@@ -81,4 +84,6 @@ const createPins = (data) => {
   });
 };
 
-export {createPins};
+getData((objects) => {
+  createPins(objects);
+});
