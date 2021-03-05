@@ -21,6 +21,7 @@ const getOn = () => {
 };
 
 const createMessage = () => {
+  const main = document.querySelector('main');
   const template = document.querySelector('#success')
   .content;
 
