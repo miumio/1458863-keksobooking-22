@@ -10,8 +10,8 @@ const CITY_CENTER = {
 };
 
 const adress = document.querySelector('#address');
-
 adress.setAttribute('readonly', '');
+
 const map = L.map('map-canvas')
   .on('load', () => {
     adress.value = `${CITY_CENTER.lat}, ${CITY_CENTER.lng}`;
@@ -57,7 +57,6 @@ const PIN_ICON = L.icon({
 });
 
 const createPins = (data) => {
-
   data.forEach((object) => {
     const PIN = L.marker(
       {

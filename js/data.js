@@ -1,18 +1,7 @@
+import {createErrorMessage} from './util.js';
+
 const URL_GET = 'https://22.javascript.pages.academy/keksobooking/data';
-const URL_SEND = 'https://22.javascript.pages.academy/keksobooking/';
-
-const createErrorMessage = () => {
-  const popup = document.createElement('div');
-
-  popup.textContent = '!WARNING! conection error';
-  popup.classList.add('error__getdata');
-
-  document.body.appendChild(popup);
-
-  setTimeout (() => {
-    popup.remove();
-  }, 3000)
-};
+const URL_SEND = 'https://22.javascript.pages.academy/keksobooking';
 
 const getData = (onSucces) => {
   fetch(URL_GET)
@@ -20,12 +9,46 @@ const getData = (onSucces) => {
   .then((objects) => {
     onSucces(objects);
   })
-  .catch(() => {createErrorMessage()});
+  .catch(() => {createErrorMessage('connection error')});
 };
 
-const sendData = (form) => {
+const sendData = (onSuccess, onFail, body) => {
+  fetch(URL_SEND,
+    {
+      method: 'POST',
+      body,
+    },
+  )
+    .then((response) => {
+      if (response.ok) {
+        onSuccess();
+      } else {
+        onFail('Не удалось отправить форму. Попробуйте ещё раз');
+      }
+    })
+    .catch(() => {
+      onFail('Не удалось отправить форму. Попробуйте ещё раз');
+    });
+};
+// const sendData = (formData) => {
+//   fetch(URL_SEND,
+//     {
+//       method: 'POST',
+//       body: formData,
+//       credentials: 'same-origin',
+//     })
+//     .then((response) => {
+//       console.log(response.status);
+//       console.log(response.ok);
+//       return response.json();
+//     })
+//     .then((json) => {
+//       console.log('Результат', json);
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//     })};
 
-}
 
-
-export {getData};
+export {getData, sendData};
+// export {getData};
