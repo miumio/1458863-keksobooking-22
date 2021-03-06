@@ -29,28 +29,28 @@ const createMessage = () => {
   main.body.appendChild(message);
 }
 
-const formSubmit = () => {
+const formSubmit = (onSucces) => {
   forms.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     sendData(
-      () => createMessage(),
+      () => onSucces(createMessage()),
       () => createErrorMessage('Не удалось отправить форму. Попробуйте ещё раз'),
       new FormData(evt.target),
     );
   })
 ;};
 
-// const formReset = () => {
-//   forms.reset();
-// }
-// formSubmit(formReset);
+const formReset = () => {
+  forms.reset();
+}
+formSubmit(formReset);
 
 const buttonReset = document.querySelector('.ad-form__reset');
 buttonReset.addEventListener('click', (evt) => {
   evt.preventDefault();
   forms.reset();
-})
+});
 
 // const errorTemplate = document.querySelector('#error')
 // .content
