@@ -18,13 +18,13 @@ const getOn = () => {
   forms.classList.remove('ad-form--disabled');
   fieldset.forEach((element) => {
     element.removeAttribute('disabled', '');
-});
+  });
 };
 
 const createMessage = () => {
   const main = document.querySelector('main');
   const template = document.querySelector('#success')
-  .content;
+    .content;
 
   const message = template.cloneNode(true);
   main.body.appendChild(message);
@@ -39,8 +39,8 @@ const formSubmit = (onSucces) => {
       () => createErrorMessage('Не удалось отправить форму. Попробуйте ещё раз'),
       new FormData(evt.target),
     );
-  })
-;};
+  });
+};
 
 const formReset = () => {
   forms.reset();

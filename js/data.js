@@ -5,11 +5,11 @@ const URL_SEND = 'https://22.javascript.pages.academy/keksobooking';
 
 const getData = (onSucces) => {
   fetch(URL_GET)
-  .then((response) => response.json())
-  .then((objects) => {
-    onSucces(objects);
-  })
-  .catch(() => {createErrorMessage('connection error')});
+    .then((response) => response.json())
+    .then((objects) => {
+      onSucces(objects);
+    })
+    .catch(() => {createErrorMessage('connection error')});
 };
 
 const sendData = (onSuccess, onFail, body) => {
