@@ -1,5 +1,6 @@
 import {sendData} from './data.js';
 import {createErrorMessage} from './util.js';
+import {mapReset} from './map.js';
 
 const forms = document.querySelector('.ad-form, map__filters');
 const fieldset = forms.querySelectorAll('fieldset');
@@ -43,7 +44,9 @@ const formSubmit = (onSucces) => {
 
 const formReset = () => {
   forms.reset();
-}
+  mapReset();
+};
+
 formSubmit(formReset);
 
 const buttonReset = document.querySelector('.ad-form__reset');

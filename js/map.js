@@ -76,3 +76,11 @@ const createPins = (data) => {
 getData((objects) => {
   createPins(objects);
 });
+
+const mapReset = () => {
+  map.setView(CITY_CENTER, 10);
+  MAIN_PIN.setLatLng(CITY_CENTER);
+  adress.value = `${CITY_CENTER.lat}, ${CITY_CENTER.lng}`;
+};
+
+export {mapReset};
