@@ -41,10 +41,16 @@ const formSubmit = () => {
   })
 ;};
 
-const formReset = () => {
+// const formReset = () => {
+//   forms.reset();
+// }
+// formSubmit(formReset);
+
+const buttonReset = document.querySelector('.ad-form__reset');
+buttonReset.addEventListener('click', (evt) => {
+  evt.preventDefault();
   forms.reset();
-}
-formSubmit(formReset);
+})
 
 // const errorTemplate = document.querySelector('#error')
 // .content
