@@ -30,25 +30,5 @@ const sendData = (onSuccess, onFail, body) => {
       onFail('Не удалось отправить форму. Попробуйте ещё раз');
     });
 };
-// const sendData = (formData) => {
-//   fetch(URL_SEND,
-//     {
-//       method: 'POST',
-//       body: formData,
-//       credentials: 'same-origin',
-//     })
-//     .then((response) => {
-//       console.log(response.status);
-//       console.log(response.ok);
-//       return response.json();
-//     })
-//     .then((json) => {
-//       console.log('Результат', json);
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//     })};
-
 
 export {getData, sendData};
-// export {getData};
