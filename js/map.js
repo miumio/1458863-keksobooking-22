@@ -56,8 +56,10 @@ const PIN_ICON = L.icon({
   iconAnchor: [20, 40],
 });
 
+const SIMILAR_OBJECT_COUNT = 10;
+
 const createPins = (data) => {
-  data.forEach((object) => {
+  data.slice(0, SIMILAR_OBJECT_COUNT).forEach((object) => {
     const PIN = L.marker(
       {
         lat: object.location.lat,
