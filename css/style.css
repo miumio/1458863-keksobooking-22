@@ -943,6 +943,18 @@ fieldset {
   background-color: rgba(0, 0, 0, 0.8);
 }
 
+.error__getdata {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  padding: 5x;
+  text-align: center;
+  color: #ffffff;
+  background-color: #ff5635;
+}
+
 .success__message,
 .error__message {
   position: relative;

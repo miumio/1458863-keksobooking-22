@@ -40,4 +40,20 @@ const getNotRepeatItem = (arr) => {
   return newArray;
 };
 
-export {getRandomNumber, getRandomCoordinates, shuffle, getRandomArrayElement, getNotRepeatItem};
+const createErrorMessage = (message) => {
+  const popup = document.createElement('div');
+
+  popup.textContent = message;
+  popup.classList.add('error__getdata');
+
+  document.body.appendChild(popup);
+
+  setTimeout (() => {
+    popup.remove();
+  }, 3000)
+};
+
+
+
+
+export {getRandomNumber, getRandomCoordinates, shuffle, getRandomArrayElement, getNotRepeatItem, createErrorMessage};

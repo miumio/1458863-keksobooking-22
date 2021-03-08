@@ -1,2 +1,3 @@
-import './similar-objects-list.js';
 import './map.js';
+import './data.js';
+import './form.js';
