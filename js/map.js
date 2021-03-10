@@ -1,8 +1,9 @@
 /* global L:readonly */
 
-import {getObject} from './similar-objects-list.js';
-import {getData} from './data.js';
+import {getObject, sortObjects} from './similar-objects-list.js';
 import {getOn} from './form.js';
+
+const SIMILAR_OBJECT_COUNT = 10;
 
 const CITY_CENTER = {
   lat: '35.68783',
@@ -15,7 +16,6 @@ adress.setAttribute('readonly', '');
 const map = L.map('map-canvas')
   .on('load', () => {
     adress.value = `${CITY_CENTER.lat}, ${CITY_CENTER.lng}`;
-    getOn();
   })
   .setView({
     lat: CITY_CENTER.lat,
@@ -56,10 +56,17 @@ const PIN_ICON = L.icon({
   iconAnchor: [20, 40],
 });
 
-const SIMILAR_OBJECT_COUNT = 10;
+
+let pins = [];
 
 const createPins = (data) => {
-  data.slice(0, SIMILAR_OBJECT_COUNT).forEach((object) => {
+  pins.forEach((pin) => pin.remove());
+
+  data
+  .slice()
+  .sort(sortObjects)
+  .slice(0, SIMILAR_OBJECT_COUNT)
+  .forEach((object) => {
     const PIN = L.marker(
       {
         lat: object.location.lat,
@@ -72,12 +79,10 @@ const createPins = (data) => {
     PIN
       .addTo(map)
       .bindPopup(getObject(object));
+
+      pins.push(PIN)
   });
 };
-
-getData((objects) => {
-  createPins(objects);
-});
 
 const mapReset = () => {
   map.setView(CITY_CENTER, 10);
@@ -85,4 +90,4 @@ const mapReset = () => {
   adress.value = `${CITY_CENTER.lat}, ${CITY_CENTER.lng}`;
 };
 
-export {mapReset};
+export {mapReset, createPins};

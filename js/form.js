@@ -65,5 +65,5 @@ buttonReset.addEventListener('click', (evt) => {
 //   document.body.append(errorMessage);
 // }
 
-export {getOn};
+export {getOn, formReset};
 
