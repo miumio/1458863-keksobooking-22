@@ -65,5 +65,35 @@ buttonReset.addEventListener('click', (evt) => {
 //   document.body.append(errorMessage);
 // }
 
+const objectType = document.querySelector('#type');
+const objectPrice = document.querySelector('#price');
+const checkIn = document.querySelector('#timein');
+const checkOut = document.querySelector('#timeout');
+
+const Price = {
+  bungalow: 0,
+  flat: 1000,
+  house: 5000,
+  palace: 10000,
+};
+
+const setPrice = () => {
+  objectType.addEventListener('change', () => {
+    const MIN_PRICE = Price[objectType.value];
+    objectPrice.setAttribute('placeholder', MIN_PRICE);
+    objectPrice.min = MIN_PRICE;
+  });
+};
+
+const setTime = () => {
+  checkIn.addEventListener('change', () =>
+    checkOut.value = checkIn.value);
+  checkOut.addEventListener('change', () =>
+    checkIn.value = checkOut.value);
+};
+
+setPrice();
+setTime();
+
 export {getOn};
 
