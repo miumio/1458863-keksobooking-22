@@ -1,8 +1,9 @@
 /* global L:readonly */
 
 import {getObject} from './similar-objects-list.js';
-import {getData} from './data.js';
-import {getOn} from './form.js';
+import {filterObjectsbyType} from './filter.js'
+
+const SIMILAR_OBJECT_COUNT = 10;
 
 const CITY_CENTER = {
   lat: '35.68783',
@@ -15,7 +16,6 @@ adress.setAttribute('readonly', '');
 const map = L.map('map-canvas')
   .on('load', () => {
     adress.value = `${CITY_CENTER.lat}, ${CITY_CENTER.lng}`;
-    getOn();
   })
   .setView({
     lat: CITY_CENTER.lat,
@@ -51,31 +51,38 @@ MAIN_PIN.on('moveend', (evt) => {
 });
 
 const PIN_ICON = L.icon({
-  iconUrl: '../img/pin.svg',
+  iconUrl: './img/pin.svg',
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
 
-const createPins = (data) => {
-  data.forEach((object) => {
-    const PIN = L.marker(
-      {
-        lat: object.location.lat,
-        lng: object.location.lng,
-      },
-      {
-        icon: PIN_ICON,
-      },
-    );
-    PIN
-      .addTo(map)
-      .bindPopup(getObject(object));
-  });
-};
 
-getData((objects) => {
-  createPins(objects);
-});
+let pins = [];
+
+const createPins = (data) => {
+  pins.forEach((pin) => pin.remove());
+
+  data
+    .slice()
+    .filter(filterObjectsbyType)
+    .slice(0, SIMILAR_OBJECT_COUNT)
+    .forEach((object) => {
+      const PIN = L.marker(
+        {
+          lat: object.location.lat,
+          lng: object.location.lng,
+        },
+        {
+          icon: PIN_ICON,
+        },
+      );
+      PIN
+        .addTo(map)
+        .bindPopup(getObject(object));
+
+      pins.push(PIN)
+    });
+};
 
 const mapReset = () => {
   map.setView(CITY_CENTER, 10);
@@ -83,4 +90,4 @@ const mapReset = () => {
   adress.value = `${CITY_CENTER.lat}, ${CITY_CENTER.lng}`;
 };
 
-export {mapReset};
+export {mapReset, createPins};
