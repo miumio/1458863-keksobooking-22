@@ -51,7 +51,7 @@ MAIN_PIN.on('moveend', (evt) => {
 });
 
 const PIN_ICON = L.icon({
-  iconUrl: '../img/pin.svg',
+  iconUrl: './img/pin.svg',
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
