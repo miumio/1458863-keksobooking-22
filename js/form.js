@@ -95,5 +95,5 @@ const setTime = () => {
 setPrice();
 setTime();
 
-export {getOn};
+export {getOn, formReset};
 

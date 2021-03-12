@@ -52,4 +52,39 @@ const getObject = (object) => {
   return objectElement;
 }
 
+// const Default = {
+//   type: 'Квартира',
+//   price: '10000 - 50000₽',
+//   rooms: '2',
+// };
+
+// const getObjectRank = (data) => {
+//   const typeSelect = document.querySelector('#housing-type');
+//   const priceSelect = document.querySelector('#housing-price');
+//   const roomsSelect = document.querySelector('#housing-rooms');
+
+//   let rank = 0;
+
+//   if (data.offer.type === (typeSelect.value || Default.type)) {
+//     rank += 3;
+//   }
+
+//   if (data.offer.price === (priceSelect.value || Default.price)) {
+//     rank +=2;
+//   }
+
+//   if (data.offer.rooms === (roomsSelect.value || Default.rooms)) {
+//     rank +=1;
+//   }
+
+//   return rank;
+// };
+
+// const sortObjects = (objectA, objectB) => {
+//   const rankA = getObjectRank(objectA);
+//   const rankB = getObjectRank(objectB);
+
+//   return rankB - rankA;
+// };
+
 export {getObject};
