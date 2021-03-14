@@ -2,8 +2,18 @@ import {sendData} from './data.js';
 import {createErrorMessage} from './util.js';
 import {mapReset} from './map.js';
 
+const MIN_TITLE_LENGTH = 30;
+const MAX_TITLE_LENGTH = 100;
+
 const forms = document.querySelector('.ad-form, map__filters');
 const fieldset = forms.querySelectorAll('fieldset');
+const objectTitle = document.querySelector('#title');
+const objectType = document.querySelector('#type');
+const objectPrice = document.querySelector('#price');
+const checkIn = document.querySelector('#timein');
+const checkOut = document.querySelector('#timeout');
+
+
 
 const getOff = () => {
   forms.classList.add('ad-form--disabled');
@@ -65,10 +75,6 @@ buttonReset.addEventListener('click', (evt) => {
 //   document.body.append(errorMessage);
 // }
 
-const objectType = document.querySelector('#type');
-const objectPrice = document.querySelector('#price');
-const checkIn = document.querySelector('#timein');
-const checkOut = document.querySelector('#timeout');
 
 const Price = {
   bungalow: 0,
@@ -84,6 +90,7 @@ const setPrice = () => {
     objectPrice.min = MIN_PRICE;
   });
 };
+setPrice();
 
 const setTime = () => {
   checkIn.addEventListener('change', () =>
@@ -92,8 +99,25 @@ const setTime = () => {
     checkIn.value = checkOut.value);
 };
 
-setPrice();
 setTime();
+
+const validateTitle = () => {
+  objectTitle.addEventListener('input', () => {
+    const valueLength = objectTitle.value.length;
+
+    if (valueLength < MIN_TITLE_LENGTH) {
+      objectTitle.setCustomValidity('Ещё ' + (MIN_TITLE_LENGTH - valueLength) +' симв.');
+    } else if (valueLength > MAX_TITLE_LENGTH) {
+      objectTitle.setCustomValidity('Удалите лишние ' + (valueLength - MAX_TITLE_LENGTH) +' симв.');
+    } else {
+      objectTitle.setCustomValidity('');
+    }
+
+    objectTitle.reportValidity();
+  });
+};
+
+validateTitle();
 
 export {getOn, formReset};
 
