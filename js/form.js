@@ -5,6 +5,13 @@ import {mapReset} from './map.js';
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 
+const Price = {
+  bungalow: 0,
+  flat: 1000,
+  house: 5000,
+  palace: 10000,
+};
+
 const forms = document.querySelector('.ad-form, map__filters');
 const fieldset = forms.querySelectorAll('fieldset');
 const objectTitle = document.querySelector('#title');
@@ -65,23 +72,6 @@ buttonReset.addEventListener('click', (evt) => {
   forms.reset();
 });
 
-// const errorTemplate = document.querySelector('#error')
-// .content
-// .querySelector('.error');
-
-// const showError = () => {
-//   const errorMessage = errorTemplate.cloneNode(true);
-
-//   document.body.append(errorMessage);
-// }
-
-
-const Price = {
-  bungalow: 0,
-  flat: 1000,
-  house: 5000,
-  palace: 10000,
-};
 
 const setPrice = () => {
   objectType.addEventListener('change', () => {
@@ -118,6 +108,23 @@ const validateTitle = () => {
 };
 
 validateTitle();
+
+const validatePrice = () => {
+  objectPrice.addEventListener('input', () => {
+    const value = objectPrice.value;
+    const MAX_PRICE = 1000000;
+
+    if (value > MAX_PRICE) {
+      objectPrice.setCustomValidity('Максимальная цена: ' + MAX_PRICE + ' рублей.');
+    } else {
+      objectPrice.setCustomValidity('');
+    }
+
+    objectPrice.reportValidity();
+  });
+};
+
+validatePrice();
 
 export {getOn, formReset};
 
