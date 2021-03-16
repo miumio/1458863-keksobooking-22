@@ -3,7 +3,7 @@ import {createErrorMessage} from './util.js';
 import {mapReset} from './map.js';
 
 const MIN_TITLE_LENGTH = 30;
-const MAX_TITLE_LENGTH = 100;
+const MAX_TITLE_LENGTH = 35;
 
 const Price = {
   bungalow: 0,
@@ -76,8 +76,8 @@ buttonReset.addEventListener('click', (evt) => {
 const setPrice = () => {
   typeSelect.addEventListener('change', () => {
     const MIN_PRICE = Price[typeSelect.value];
-    typeSelect.setAttribute('placeholder', MIN_PRICE);
-    typeSelect.min = MIN_PRICE;
+    priceInput.setAttribute('placeholder', MIN_PRICE);
+    priceInput.min = MIN_PRICE;
   });
 };
 setPrice();
@@ -115,7 +115,7 @@ const validatePrice = () => {
     const MAX_PRICE = 1000000;
 
     if (value > MAX_PRICE) {
-      priceInput.setCustomValidity(`Максимальная цена: ${MAX_PRICE} + рублей.`);
+      priceInput.setCustomValidity('Максимальная цена: ' + MAX_PRICE + ' рублей.');
     } else {
       priceInput.setCustomValidity('');
     }
