@@ -2,8 +2,25 @@ import {sendData} from './data.js';
 import {createErrorMessage} from './util.js';
 import {mapReset} from './map.js';
 
+const MIN_TITLE_LENGTH = 30;
+const MAX_TITLE_LENGTH = 35;
+
+const Price = {
+  bungalow: 0,
+  flat: 1000,
+  house: 5000,
+  palace: 10000,
+};
+
 const forms = document.querySelector('.ad-form, map__filters');
 const fieldset = forms.querySelectorAll('fieldset');
+const titleInput = document.querySelector('#title');
+const typeSelect = document.querySelector('#type');
+const priceInput = document.querySelector('#price');
+const checkIn = document.querySelector('#timein');
+const checkOut = document.querySelector('#timeout');
+const roomsSelect = document.querySelector('#room_number');
+const guestSelect = document.querySelector('#capacity');
 
 const getOff = () => {
   forms.classList.add('ad-form--disabled');
@@ -55,35 +72,15 @@ buttonReset.addEventListener('click', (evt) => {
   forms.reset();
 });
 
-// const errorTemplate = document.querySelector('#error')
-// .content
-// .querySelector('.error');
-
-// const showError = () => {
-//   const errorMessage = errorTemplate.cloneNode(true);
-
-//   document.body.append(errorMessage);
-// }
-
-const objectType = document.querySelector('#type');
-const objectPrice = document.querySelector('#price');
-const checkIn = document.querySelector('#timein');
-const checkOut = document.querySelector('#timeout');
-
-const Price = {
-  bungalow: 0,
-  flat: 1000,
-  house: 5000,
-  palace: 10000,
-};
 
 const setPrice = () => {
-  objectType.addEventListener('change', () => {
-    const MIN_PRICE = Price[objectType.value];
-    objectPrice.setAttribute('placeholder', MIN_PRICE);
-    objectPrice.min = MIN_PRICE;
+  typeSelect.addEventListener('change', () => {
+    const MIN_PRICE = Price[typeSelect.value];
+    priceInput.setAttribute('placeholder', MIN_PRICE);
+    priceInput.min = MIN_PRICE;
   });
 };
+setPrice();
 
 const setTime = () => {
   checkIn.addEventListener('change', () =>
@@ -92,8 +89,66 @@ const setTime = () => {
     checkIn.value = checkOut.value);
 };
 
-setPrice();
 setTime();
+
+const validateTitle = () => {
+  titleInput.addEventListener('input', () => {
+    const valueLength = titleInput.value.length;
+
+    if (valueLength < MIN_TITLE_LENGTH) {
+      titleInput.setCustomValidity(`Ещё ${MIN_TITLE_LENGTH - valueLength} симв.`);
+    } else if (valueLength > MAX_TITLE_LENGTH) {
+      titleInput.setCustomValidity(`Удалите лишние ${valueLength - MAX_TITLE_LENGTH} симв.`);
+    } else {
+      titleInput.setCustomValidity('');
+    }
+
+    titleInput.reportValidity();
+  });
+};
+
+validateTitle();
+
+const validatePrice = () => {
+  priceInput.addEventListener('input', () => {
+    const value = priceInput.value;
+    const MAX_PRICE = 1000000;
+
+    if (value > MAX_PRICE) {
+      priceInput.setCustomValidity('Максимальная цена: ' + MAX_PRICE + ' рублей.');
+    } else {
+      priceInput.setCustomValidity('');
+    }
+
+    priceInput.reportValidity();
+  });
+};
+
+validatePrice();
+
+const getGuestsForRooms = () => {
+  const roomsValue = Number(roomsSelect.value);
+  const guestsValue = Number(guestSelect.value);
+
+  if (roomsValue === 1 && guestsValue !== 1) {
+    guestSelect.setCustomValidity('для 1 гостя');
+  } else if (roomsValue === 2 && (guestsValue === 3 || guestsValue ===0)) {
+    guestSelect.setCustomValidity('для 1-2 гостей');
+  } else if (roomsValue === 3 && guestsValue === 0) {
+    guestSelect.setCustomValidity('для 1-3 гостей');
+  } else if (roomsValue === 100 && guestsValue !== 0) {
+    guestSelect.setCustomValidity('не для гостей');
+  } else {
+    guestSelect.setCustomValidity('');
+  }
+
+  guestSelect.reportValidity();
+};
+
+const changeRoomsSelect = () => getGuestsForRooms();
+const changeGuestsSelect = () => getGuestsForRooms();
+roomsSelect.addEventListener('change', changeRoomsSelect);
+guestSelect.addEventListener('change', changeGuestsSelect);
 
 export {getOn, formReset};
 
