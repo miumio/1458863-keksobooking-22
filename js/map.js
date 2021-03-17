@@ -1,7 +1,7 @@
 /* global L:readonly */
 
 import {getObject} from './similar-objects-list.js';
-import {filterObjectsbyType} from './filter.js'
+import {getFilteredObjects} from './filter.js'
 
 const SIMILAR_OBJECT_COUNT = 10;
 
@@ -64,7 +64,7 @@ const createPins = (data) => {
 
   data
     .slice()
-    .filter(filterObjectsbyType)
+    .filter(getFilteredObjects)
     .slice(0, SIMILAR_OBJECT_COUNT)
     .forEach((object) => {
       const PIN = L.marker(
