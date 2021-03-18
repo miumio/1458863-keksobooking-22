@@ -19,13 +19,22 @@ const priceRange = {
   },
 };
 
+const filterObjectByFeature = (object) => {
+  const checked = filter.querySelectorAll('input:checked');
+
+  return Array.from(checked)
+  .map((checkbox) => checkbox.value)
+  .every((checkbox) => object.offer.features.includes(checkbox));
+};
+
 const getFilteredObjects = (object) => {
   const filterObjectsbyType = object.offer.type === typeSelect.value || typeSelect.value === 'any';
   const filterObjectsbyRooms = object.offer.rooms === +roomsSelect.value || roomsSelect.value === 'any';
   const filterObjectsbyGuests = object.offer.guests === +questsSelect.value || questsSelect.value === 'any';
   const filterObjectbyPrice = priceSelect.value === 'any' || (object.offer.price >= priceRange[priceSelect.value].min && object.offer.price <= priceRange[priceSelect.value].max);
+  const filterObjectByFeatures = filterObjectByFeature(object);
 
-  return filterObjectsbyType && filterObjectsbyRooms && filterObjectsbyGuests && filterObjectbyPrice;
+  return filterObjectsbyType && filterObjectsbyRooms && filterObjectsbyGuests && filterObjectbyPrice && filterObjectByFeatures;
 };
 
 const changeFilter = (cb) => {
