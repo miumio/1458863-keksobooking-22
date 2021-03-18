@@ -11,5 +11,6 @@ getData((objects) => {
   createPins(objects);
   getOn();
   formReset (() => createPins(objects))
-  changeFilter(_.debounce(() => createPins(objects), RERENDER_DELAY,));
+  changeFilter(
+    _.debounce(() => createPins(objects), RERENDER_DELAY));
 });
