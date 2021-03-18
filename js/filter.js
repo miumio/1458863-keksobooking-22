@@ -23,8 +23,8 @@ const filterObjectByFeature = (object) => {
   const checked = filter.querySelectorAll('input:checked');
 
   return Array.from(checked)
-  .map((checkbox) => checkbox.value)
-  .every((checkbox) => object.offer.features.includes(checkbox));
+    .map((checkbox) => checkbox.value)
+    .every((checkbox) => object.offer.features.includes(checkbox));
 };
 
 const getFilteredObjects = (object) => {
@@ -43,6 +43,4 @@ const changeFilter = (cb) => {
   });
 };
 
-
 export {changeFilter, getFilteredObjects};
-
