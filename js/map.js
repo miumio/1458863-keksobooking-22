@@ -84,10 +84,10 @@ const createPins = (data) => {
     });
 };
 
-const mapReset = () => {
+const resetMap = () => {
   map.setView(CITY_CENTER, 10);
   MAIN_PIN.setLatLng(CITY_CENTER);
   adress.value = `${CITY_CENTER.lat}, ${CITY_CENTER.lng}`;
 };
 
-export {mapReset, createPins};
+export {resetMap, createPins};

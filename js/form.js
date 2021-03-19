@@ -1,9 +1,9 @@
 import {sendData} from './data.js';
 import {createErrorMessage} from './util.js';
-import {mapReset} from './map.js';
+import {resetMap} from './map.js';
 
 const MIN_TITLE_LENGTH = 30;
-const MAX_TITLE_LENGTH = 35;
+const MAX_TITLE_LENGTH = 100;
 
 const Price = {
   bungalow: 0,
@@ -21,17 +21,18 @@ const checkIn = document.querySelector('#timein');
 const checkOut = document.querySelector('#timeout');
 const roomsSelect = document.querySelector('#room_number');
 const guestSelect = document.querySelector('#capacity');
+const resetButton = document.querySelector('.ad-form__reset');
 
-const getOff = () => {
+const deactivateForm = () => {
   forms.classList.add('ad-form--disabled');
   fieldset.forEach((element) => {
     element.setAttribute('disabled', '');
   });
 };
 
-getOff();
+deactivateForm();
 
-const getOn = () => {
+const activateForm = () => {
   forms.classList.remove('ad-form--disabled');
   fieldset.forEach((element) => {
     element.removeAttribute('disabled', '');
@@ -46,7 +47,7 @@ const createMessage = () => {
   document.body.appendChild(message);
 }
 
-const formSubmit = () => {
+const submitForm = () => {
   forms.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
@@ -58,15 +59,14 @@ const formSubmit = () => {
   });
 };
 
-const formReset = () => {
+const resetForm = () => {
   forms.reset();
-  mapReset();
+  resetMap();
 };
 
-formSubmit(formReset);
+submitForm(resetForm);
 
-const buttonReset = document.querySelector('.ad-form__reset');
-buttonReset.addEventListener('click', (evt) => {
+resetButton.addEventListener('click', (evt) => {
   evt.preventDefault();
   forms.reset();
 });
@@ -149,5 +149,5 @@ const changeGuestsSelect = () => getGuestsForRooms();
 roomsSelect.addEventListener('change', changeRoomsSelect);
 guestSelect.addEventListener('change', changeGuestsSelect);
 
-export {getOn, formReset};
+export {activateForm, resetForm};
 
