@@ -12,20 +12,20 @@ const Price = {
   palace: 10000,
 };
 
-const forms = document.querySelector('.ad-form, map__filters');
-const fieldset = forms.querySelectorAll('fieldset');
-const titleInput = document.querySelector('#title');
-const typeSelect = document.querySelector('#type');
-const priceInput = document.querySelector('#price');
-const checkIn = document.querySelector('#timein');
-const checkOut = document.querySelector('#timeout');
-const roomsSelect = document.querySelector('#room_number');
-const guestSelect = document.querySelector('#capacity');
-const resetButton = document.querySelector('.ad-form__reset');
+const form = document.querySelector('.ad-form');
+const fieldsets = document.querySelectorAll('fieldset');
+const titleInput = form.querySelector('#title');
+const typeSelect = form.querySelector('#type');
+const priceInput = form.querySelector('#price');
+const checkIn = form.querySelector('#timein');
+const checkOut = form.querySelector('#timeout');
+const roomsSelect = form.querySelector('#room_number');
+const guestSelect = form.querySelector('#capacity');
+const resetButton = form.querySelector('.ad-form__reset');
 
 const deactivateForm = () => {
-  forms.classList.add('ad-form--disabled');
-  fieldset.forEach((element) => {
+  form.classList.add('ad-form--disabled');
+  fieldsets.forEach((element) => {
     element.setAttribute('disabled', '');
   });
 };
@@ -33,8 +33,8 @@ const deactivateForm = () => {
 deactivateForm();
 
 const activateForm = () => {
-  forms.classList.remove('ad-form--disabled');
-  fieldset.forEach((element) => {
+  form.classList.remove('ad-form--disabled');
+  fieldsets.forEach((element) => {
     element.removeAttribute('disabled', '');
   });
 };
@@ -48,7 +48,7 @@ const createMessage = () => {
 }
 
 const submitForm = () => {
-  forms.addEventListener('submit', (evt) => {
+  form.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     sendData(
@@ -60,7 +60,7 @@ const submitForm = () => {
 };
 
 const resetForm = () => {
-  forms.reset();
+  form.reset();
   resetMap();
 };
 
@@ -68,7 +68,7 @@ submitForm(resetForm);
 
 resetButton.addEventListener('click', (evt) => {
   evt.preventDefault();
-  forms.reset();
+  form.reset();
 });
 
 

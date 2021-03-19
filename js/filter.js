@@ -1,8 +1,9 @@
 const filter = document.querySelector ('.map__filters');
-const typeSelect = document.querySelector('#housing-type');
-const roomsSelect = document.querySelector('#housing-rooms');
-const questsSelect = document.querySelector('#housing-guests');
-const priceSelect = document.querySelector('#housing-price');
+const typeSelect = filter.querySelector('#housing-type');
+const roomsSelect = filter.querySelector('#housing-rooms');
+const questsSelect = filter.querySelector('#housing-guests');
+const priceSelect = filter.querySelector('#housing-price');
+const selects = filter.querySelectorAll('select');
 
 const priceRange = {
   low: {
@@ -17,6 +18,22 @@ const priceRange = {
     min: 50000,
     max: 1000000,
   },
+};
+
+const deactivateFilter = () => {
+  filter.classList.add('map__filters--disabled');
+  selects.forEach((select) => {
+    select.setAttribute('disabled', '');
+  });
+};
+
+deactivateFilter();
+
+const activateFilter = () => {
+  filter.classList.remove('map__filters--disabled');
+  selects.forEach((select) => {
+    select.removeAttribute('disabled', '');
+  });
 };
 
 const filterObjectByFeature = (object) => {
@@ -43,4 +60,4 @@ const changeFilter = (cb) => {
   });
 };
 
-export {changeFilter, getFilteredObjects};
+export {changeFilter, getFilteredObjects, activateFilter};
