@@ -39,20 +39,19 @@ const getOn = () => {
 };
 
 const createMessage = () => {
-  const main = document.querySelector('main');
   const template = document.querySelector('#success')
     .content;
 
   const message = template.cloneNode(true);
-  main.body.appendChild(message);
+  document.body.appendChild(message);
 }
 
-const formSubmit = (onSucces) => {
+const formSubmit = () => {
   forms.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     sendData(
-      () => onSucces(createMessage()),
+      () => createMessage(),
       () => createErrorMessage('Не удалось отправить форму. Попробуйте ещё раз'),
       new FormData(evt.target),
     );
