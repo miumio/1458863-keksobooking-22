@@ -1,6 +1,7 @@
 import {sendData} from './data.js';
-import {createErrorMessage} from './util.js';
+import {showErrorMessage, showSuccessMessage} from './message.js';
 import {resetMap} from './map.js';
+import {filter} from './filter.js';
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
@@ -21,7 +22,7 @@ const checkIn = form.querySelector('#timein');
 const checkOut = form.querySelector('#timeout');
 const roomsSelect = form.querySelector('#room_number');
 const guestSelect = form.querySelector('#capacity');
-const resetButton = form.querySelector('.ad-form__reset');
+
 
 const deactivateForm = () => {
   form.classList.add('ad-form--disabled');
@@ -39,38 +40,25 @@ const activateForm = () => {
   });
 };
 
-const createMessage = () => {
-  const template = document.querySelector('#success')
-    .content;
-
-  const message = template.cloneNode(true);
-  document.body.appendChild(message);
-}
-
 const submitForm = () => {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     sendData(
-      () => createMessage(),
-      () => createErrorMessage('Не удалось отправить форму. Попробуйте ещё раз'),
+      () => showSuccessMessage(),
+      () => showErrorMessage(),
       new FormData(evt.target),
     );
   });
 };
 
 const resetForm = () => {
-  form.reset();
+  filter.reset();
+  form.reset;
   resetMap();
 };
 
 submitForm(resetForm);
-
-resetButton.addEventListener('click', (evt) => {
-  evt.preventDefault();
-  form.reset();
-});
-
 
 const setPrice = () => {
   typeSelect.addEventListener('change', () => {

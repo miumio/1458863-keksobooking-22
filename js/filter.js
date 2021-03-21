@@ -60,4 +60,10 @@ const changeFilter = (cb) => {
   });
 };
 
-export {changeFilter, getFilteredObjects, activateFilter};
+const resetFilter = (cb) => {
+  filter.addEventListener('reset', () => {
+    cb();
+  });
+};
+
+export {filter, resetFilter, changeFilter, getFilteredObjects, activateFilter};
