@@ -54,7 +54,7 @@ const submitForm = () => {
 
 const resetForm = () => {
   filter.reset();
-  form.reset;
+  form.reset();
   resetMap();
 };
 

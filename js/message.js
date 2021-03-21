@@ -1,3 +1,5 @@
+import {resetForm} from './form.js'
+
 const SHOW_TIME = 3000;
 
 const main = document.querySelector('main');
@@ -45,6 +47,7 @@ const closePopup = (message) => {
 
 const showSuccessMessage = () => {
   showPopup(successTemplate);
+  resetForm();
 };
 
 const showErrorMessage = () => {
