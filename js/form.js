@@ -2,6 +2,7 @@ import {sendData} from './data.js';
 import {showErrorMessage, showSuccessMessage} from './message.js';
 import {resetMap} from './map.js';
 import {filter} from './filter.js';
+import {reInit} from './main.js';
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
@@ -12,6 +13,8 @@ const Price = {
   house: 5000,
   palace: 10000,
 };
+
+const savedAdverts = [];
 
 const form = document.querySelector('.ad-form');
 const fieldsets = document.querySelectorAll('fieldset');
@@ -56,6 +59,7 @@ const resetForm = () => {
   filter.reset();
   form.reset();
   resetMap();
+  reInit(savedAdverts);
 };
 
 submitForm(resetForm);
@@ -137,5 +141,5 @@ const changeGuestsSelect = () => getGuestsForRooms();
 roomsSelect.addEventListener('change', changeRoomsSelect);
 guestSelect.addEventListener('change', changeGuestsSelect);
 
-export {activateForm, resetForm};
+export {activateForm, resetForm, savedAdverts};
 
