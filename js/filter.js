@@ -45,13 +45,13 @@ const filterObjectByFeature = (object) => {
 };
 
 const getFilteredObjects = (object) => {
-  const filterObjectsbyType = object.offer.type === typeSelect.value || typeSelect.value === 'any';
-  const filterObjectsbyRooms = object.offer.rooms === +roomsSelect.value || roomsSelect.value === 'any';
-  const filterObjectsbyGuests = object.offer.guests === +questsSelect.value || questsSelect.value === 'any';
-  const filterObjectbyPrice = priceSelect.value === 'any' || (object.offer.price >= priceRange[priceSelect.value].min && object.offer.price <= priceRange[priceSelect.value].max);
+  const filterObjectsByType = object.offer.type === typeSelect.value || typeSelect.value === 'any';
+  const filterObjectsByRooms = object.offer.rooms === +roomsSelect.value || roomsSelect.value === 'any';
+  const filterObjectsByGuests = object.offer.guests === +questsSelect.value || questsSelect.value === 'any';
+  const filterObjectByPrice = priceSelect.value === 'any' || (object.offer.price >= priceRange[priceSelect.value].min && object.offer.price <= priceRange[priceSelect.value].max);
   const filterObjectByFeatures = filterObjectByFeature(object);
 
-  return filterObjectsbyType && filterObjectsbyRooms && filterObjectsbyGuests && filterObjectbyPrice && filterObjectByFeatures;
+  return filterObjectsByType && filterObjectsByRooms && filterObjectsByGuests && filterObjectByPrice && filterObjectByFeatures;
 };
 
 const changeFilter = (cb) => {
