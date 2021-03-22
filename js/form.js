@@ -62,9 +62,16 @@ const resetForm = () => {
   reInit(savedAdverts);
 };
 
-resetButton.addEventListener('click', resetForm);
-
 submitForm(resetForm);
+
+const setFormReset = () => {
+  resetButton.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    resetForm();
+  });
+};
+
+setFormReset();
 
 const setPrice = () => {
   typeSelect.addEventListener('change', () => {
