@@ -8,9 +8,9 @@ import {activateForm, savedAdverts} from './form.js';
 const RERENDER_DELAY = 500;
 
 getData((objects) => {
-    objects.forEach((item) => {
-      savedAdverts.push(item)
-    });
+  objects.forEach((item) => {
+    savedAdverts.push(item)
+  });
   reInit(objects);
 });
 

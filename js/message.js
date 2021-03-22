@@ -38,7 +38,7 @@ const closePopup = (message) => {
     message.remove();
   });
 
-  window.addEventListener('keydown', (evt) => {
+  document.addEventListener('keydown', (evt) => {
     if (evt.key === 'Escape') {
       message.remove();
     }
