@@ -25,7 +25,7 @@ const checkIn = form.querySelector('#timein');
 const checkOut = form.querySelector('#timeout');
 const roomsSelect = form.querySelector('#room_number');
 const guestSelect = form.querySelector('#capacity');
-
+const resetButton = form.querySelector('.ad-form__reset');
 
 const deactivateForm = () => {
   form.classList.add('ad-form--disabled');
@@ -61,6 +61,8 @@ const resetForm = () => {
   resetMap();
   reInit(savedAdverts);
 };
+
+resetButton.addEventListener('click', resetForm);
 
 submitForm(resetForm);
 
