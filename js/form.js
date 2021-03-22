@@ -59,6 +59,7 @@ const resetForm = () => {
   filter.reset();
   form.reset();
   resetMap();
+  setPrice();
   reInit(savedAdverts);
 };
 
@@ -74,13 +75,14 @@ const setFormReset = () => {
 setFormReset();
 
 const setPrice = () => {
-  typeSelect.addEventListener('change', () => {
-    const MIN_PRICE = Price[typeSelect.value];
-    priceInput.setAttribute('placeholder', MIN_PRICE);
-    priceInput.min = MIN_PRICE;
-  });
+  const MIN_PRICE = Price[typeSelect.value];
+  priceInput.setAttribute('placeholder', MIN_PRICE);
+  priceInput.min = MIN_PRICE;
 };
-setPrice();
+
+typeSelect.addEventListener('change', () => {
+  setPrice();
+});
 
 const setTime = () => {
   checkIn.addEventListener('change', () =>
@@ -126,17 +128,30 @@ const validatePrice = () => {
 
 validatePrice();
 
-const getGuestsForRooms = () => {
-  const roomsValue = Number(roomsSelect.value);
-  const guestsValue = Number(guestSelect.value);
+const RoomCapacity = {
+  ONE: '1',
+  TWO: '2',
+  THREE: '3',
+  HUNDRED: '100',
+};
 
-  if (roomsValue === 1 && guestsValue !== 1) {
+const QuestsCount = {
+  ONE: '1',
+  THREE: '3',
+  ZERO: '0',
+};
+
+const validateGuestsInRoom = () => {
+  const roomsValue = roomsSelect.value;
+  const guestsValue = guestSelect.value;
+
+  if (roomsValue === RoomCapacity.ONE && guestsValue !== QuestsCount.ONE) {
     guestSelect.setCustomValidity('для 1 гостя');
-  } else if (roomsValue === 2 && (guestsValue === 3 || guestsValue ===0)) {
+  } else if (roomsValue === RoomCapacity.TWO && (guestsValue === QuestsCount.THREE || guestsValue === QuestsCount.ZERO)) {
     guestSelect.setCustomValidity('для 1-2 гостей');
-  } else if (roomsValue === 3 && guestsValue === 0) {
+  } else if (roomsValue === RoomCapacity.THREE && guestsValue === QuestsCount.ZERO) {
     guestSelect.setCustomValidity('для 1-3 гостей');
-  } else if (roomsValue === 100 && guestsValue !== 0) {
+  } else if (roomsValue === RoomCapacity.HUNDRED && guestsValue !== QuestsCount.ZERO) {
     guestSelect.setCustomValidity('не для гостей');
   } else {
     guestSelect.setCustomValidity('');
@@ -145,8 +160,8 @@ const getGuestsForRooms = () => {
   guestSelect.reportValidity();
 };
 
-const changeRoomsSelect = () => getGuestsForRooms();
-const changeGuestsSelect = () => getGuestsForRooms();
+const changeRoomsSelect = () => validateGuestsInRoom();
+const changeGuestsSelect = () => validateGuestsInRoom();
 roomsSelect.addEventListener('change', changeRoomsSelect);
 guestSelect.addEventListener('change', changeGuestsSelect);
 
