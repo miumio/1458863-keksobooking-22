@@ -1,3 +1,5 @@
+const ANY = 'any';
+
 const filter = document.querySelector ('.map__filters');
 const typeSelect = filter.querySelector('#housing-type');
 const roomsSelect = filter.querySelector('#housing-rooms');
@@ -45,10 +47,10 @@ const filterObjectByFeature = (object) => {
 };
 
 const getFilteredObjects = (object) => {
-  const filterObjectsByType = object.offer.type === typeSelect.value || typeSelect.value === 'any';
-  const filterObjectsByRooms = object.offer.rooms === +roomsSelect.value || roomsSelect.value === 'any';
-  const filterObjectsByGuests = object.offer.guests === +questsSelect.value || questsSelect.value === 'any';
-  const filterObjectByPrice = priceSelect.value.toUpperCase() === 'ANY' || (object.offer.price >= PriceRange[priceSelect.value.toUpperCase()].MIN && object.offer.price <= PriceRange[priceSelect.value.toUpperCase()].MAX);
+  const filterObjectsByType = object.offer.type === typeSelect.value || typeSelect.value === ANY;
+  const filterObjectsByRooms = object.offer.rooms === +roomsSelect.value || roomsSelect.value === ANY;
+  const filterObjectsByGuests = object.offer.guests === +questsSelect.value || questsSelect.value === ANY;
+  const filterObjectByPrice = priceSelect.value === ANY || (object.offer.price >= PriceRange[priceSelect.value.toUpperCase()].MIN && object.offer.price <= PriceRange[priceSelect.value.toUpperCase()].MAX);
   const filterObjectByFeatures = filterObjectByFeature(object);
 
   return filterObjectsByType && filterObjectsByRooms && filterObjectsByGuests && filterObjectByPrice && filterObjectByFeatures;
