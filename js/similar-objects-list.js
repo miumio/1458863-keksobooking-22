@@ -1,14 +1,14 @@
 const RoomsWords = {
-  many: 'комнат',
-  one: 'комната',
-  four: 'комнаты',
+  MANY: 'комнат',
+  ONE: 'комната',
+  FOUR: 'комнаты',
 }
 
 const ObjectsType = {
-  flat: 'Квартира',
-  bungalow: 'Бунгало',
-  house: 'Дом',
-  palace: 'Дворец',
+  FLAT: 'Квартира',
+  BUNGALOW: 'Бунгало',
+  HOUSE: 'Дом',
+  PALACE: 'Дворец',
 }
 
 const similarObjectTemplate = document.querySelector('#card')
@@ -16,16 +16,16 @@ const similarObjectTemplate = document.querySelector('#card')
   .querySelector('.popup');
 
 const getTextInRooms = (number) => {
-  let string = RoomsWords.many;
+  let string = RoomsWords.MANY;
 
   switch (number) {
     case 1:
-      string = RoomsWords.one;
+      string = RoomsWords.ONE;
       break;
     case 2:
     case 3:
     case 4:
-      string = RoomsWords.four;
+      string = RoomsWords.FOUR;
       break;
   }
   return string;
@@ -39,7 +39,7 @@ const getObject = (object) => {
   objectElement.querySelector('.popup__title').textContent = object.offer.title;
   objectElement.querySelector('.popup__text--address').textContent = object.offer.address;
   objectElement.querySelector('.popup__text--price').textContent = `${object.offer.price}  ₽/ночь`;
-  objectElement.querySelector('.popup__type').textContent = ObjectsType[object.offer.type];
+  objectElement.querySelector('.popup__type').textContent = ObjectsType[object.offer.type.toUpperCase()];
   objectElement.querySelector('.popup__text--capacity').textContent = `${object.offer.rooms} ${getTextInRooms(object.offer.rooms)} для ${object.offer.guests} ${getTextInGuests(object.offer.guests)}`;
   objectElement.querySelector('.popup__text--time').textContent = `Заезд после ${object.offer.checkin}, выезд до ${object.offer.checkout}`;
   objectElement.querySelector('.popup__features').innerHTML = '';
