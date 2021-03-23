@@ -1,89 +1,101 @@
 import {sendData} from './data.js';
-import {createErrorMessage} from './util.js';
-import {mapReset} from './map.js';
+import {showErrorMessage, showSuccessMessage} from './message.js';
+import {resetMap} from './map.js';
+import {filter} from './filter.js';
+import {reInit} from './main.js';
 
-const forms = document.querySelector('.ad-form, map__filters');
-const fieldset = forms.querySelectorAll('fieldset');
+const MIN_TITLE_LENGTH = 30;
+const MAX_TITLE_LENGTH = 100;
 
-const getOff = () => {
-  forms.classList.add('ad-form--disabled');
-  fieldset.forEach((element) => {
+const Price = {
+  BUNGALOW: 0,
+  FLAT: 1000,
+  HOUSE: 5000,
+  PALACE: 10000,
+};
+
+const RoomCapacity = {
+  ONE: '1',
+  TWO: '2',
+  THREE: '3',
+  HUNDRED: '100',
+};
+
+const QuestsCount = {
+  ONE: '1',
+  THREE: '3',
+  ZERO: '0',
+};
+
+const savedAdverts = [];
+
+const form = document.querySelector('.ad-form');
+const fieldsets = document.querySelectorAll('fieldset');
+const titleInput = form.querySelector('#title');
+const typeSelect = form.querySelector('#type');
+const priceInput = form.querySelector('#price');
+const checkIn = form.querySelector('#timein');
+const checkOut = form.querySelector('#timeout');
+const roomsSelect = form.querySelector('#room_number');
+const guestSelect = form.querySelector('#capacity');
+const resetButton = form.querySelector('.ad-form__reset');
+
+const deactivateForm = () => {
+  form.classList.add('ad-form--disabled');
+  fieldsets.forEach((element) => {
     element.setAttribute('disabled', '');
   });
 };
 
-getOff();
+deactivateForm();
 
-const getOn = () => {
-  forms.classList.remove('ad-form--disabled');
-  fieldset.forEach((element) => {
+const activateForm = () => {
+  form.classList.remove('ad-form--disabled');
+  fieldsets.forEach((element) => {
     element.removeAttribute('disabled', '');
   });
 };
 
-const createMessage = () => {
-  const main = document.querySelector('main');
-  const template = document.querySelector('#success')
-    .content;
-
-  const message = template.cloneNode(true);
-  main.body.appendChild(message);
-}
-
-const formSubmit = (onSucces) => {
-  forms.addEventListener('submit', (evt) => {
+const submitForm = () => {
+  form.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     sendData(
-      () => onSucces(createMessage()),
-      () => createErrorMessage('Не удалось отправить форму. Попробуйте ещё раз'),
+      () => showSuccessMessage(),
+      () => showErrorMessage(),
       new FormData(evt.target),
     );
   });
 };
 
-const formReset = () => {
-  forms.reset();
-  mapReset();
+const resetForm = () => {
+  filter.reset();
+  form.reset();
+  resetMap();
+  setPrice();
+  reInit(savedAdverts);
 };
 
-formSubmit(formReset);
+submitForm(resetForm);
 
-const buttonReset = document.querySelector('.ad-form__reset');
-buttonReset.addEventListener('click', (evt) => {
-  evt.preventDefault();
-  forms.reset();
-});
-
-// const errorTemplate = document.querySelector('#error')
-// .content
-// .querySelector('.error');
-
-// const showError = () => {
-//   const errorMessage = errorTemplate.cloneNode(true);
-
-//   document.body.append(errorMessage);
-// }
-
-const objectType = document.querySelector('#type');
-const objectPrice = document.querySelector('#price');
-const checkIn = document.querySelector('#timein');
-const checkOut = document.querySelector('#timeout');
-
-const Price = {
-  bungalow: 0,
-  flat: 1000,
-  house: 5000,
-  palace: 10000,
-};
-
-const setPrice = () => {
-  objectType.addEventListener('change', () => {
-    const MIN_PRICE = Price[objectType.value];
-    objectPrice.setAttribute('placeholder', MIN_PRICE);
-    objectPrice.min = MIN_PRICE;
+const setFormReset = () => {
+  resetButton.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    resetForm();
   });
 };
+
+setFormReset();
+
+const setPrice = () => {
+  const MIN_PRICE = Price[typeSelect.value.toUpperCase()];
+  priceInput.setAttribute('placeholder', MIN_PRICE);
+  priceInput.min = MIN_PRICE;
+};
+
+typeSelect.addEventListener('change', () => {
+  setPrice();
+});
 
 const setTime = () => {
   checkIn.addEventListener('change', () =>
@@ -92,8 +104,66 @@ const setTime = () => {
     checkIn.value = checkOut.value);
 };
 
-setPrice();
 setTime();
 
-export {getOn, formReset};
+const validateTitle = () => {
+  titleInput.addEventListener('input', () => {
+    const valueLength = titleInput.value.length;
+
+    if (valueLength < MIN_TITLE_LENGTH) {
+      titleInput.setCustomValidity(`Ещё ${MIN_TITLE_LENGTH - valueLength} симв.`);
+    } else if (valueLength > MAX_TITLE_LENGTH) {
+      titleInput.setCustomValidity(`Удалите лишние ${valueLength - MAX_TITLE_LENGTH} симв.`);
+    } else {
+      titleInput.setCustomValidity('');
+    }
+
+    titleInput.reportValidity();
+  });
+};
+
+validateTitle();
+
+const validatePrice = () => {
+  priceInput.addEventListener('input', () => {
+    const value = priceInput.value;
+    const MAX_PRICE = 1000000;
+
+    if (value > MAX_PRICE) {
+      priceInput.setCustomValidity('Максимальная цена: ' + MAX_PRICE + ' рублей.');
+    } else {
+      priceInput.setCustomValidity('');
+    }
+
+    priceInput.reportValidity();
+  });
+};
+
+validatePrice();
+
+const validateGuestsInRoom = () => {
+  const roomsValue = roomsSelect.value;
+  const guestsValue = guestSelect.value;
+
+  if (roomsValue === RoomCapacity.ONE && guestsValue !== QuestsCount.ONE) {
+    guestSelect.setCustomValidity('для 1 гостя');
+  } else if (roomsValue === RoomCapacity.TWO && (guestsValue === QuestsCount.THREE || guestsValue === QuestsCount.ZERO)) {
+    guestSelect.setCustomValidity('для 1-2 гостей');
+  } else if (roomsValue === RoomCapacity.THREE && guestsValue === QuestsCount.ZERO) {
+    guestSelect.setCustomValidity('для 1-3 гостей');
+  } else if (roomsValue === RoomCapacity.HUNDRED && guestsValue !== QuestsCount.ZERO) {
+    guestSelect.setCustomValidity('не для гостей');
+  } else {
+    guestSelect.setCustomValidity('');
+  }
+
+  guestSelect.reportValidity();
+};
+
+const changeRoomsSelect = () => validateGuestsInRoom();
+const changeGuestsSelect = () => validateGuestsInRoom();
+roomsSelect.addEventListener('change', changeRoomsSelect);
+guestSelect.addEventListener('change', changeGuestsSelect);
+
+export {activateForm, resetForm, savedAdverts};
 

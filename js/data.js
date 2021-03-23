@@ -1,4 +1,4 @@
-import {createErrorMessage} from './util.js';
+import {getAlert} from './message.js';
 
 const URL_GET = 'https://22.javascript.pages.academy/keksobooking/data';
 const URL_SEND = 'https://22.javascript.pages.academy/keksobooking';
@@ -9,7 +9,7 @@ const getData = (onSucces) => {
     .then((objects) => {
       onSucces(objects);
     })
-    .catch(() => {createErrorMessage('connection error')});
+    .catch(() => {getAlert('connection error')});
 };
 
 const sendData = (onSuccess, onFail, body) => {
