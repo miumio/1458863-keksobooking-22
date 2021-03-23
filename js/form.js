@@ -14,6 +14,19 @@ const Price = {
   palace: 10000,
 };
 
+const RoomCapacity = {
+  one: '1',
+  two: '2',
+  three: '3',
+  hundred: '100',
+};
+
+const QuestsCount = {
+  one: '1',
+  three: '3',
+  zero: '0',
+};
+
 const savedAdverts = [];
 
 const form = document.querySelector('.ad-form');
@@ -128,30 +141,17 @@ const validatePrice = () => {
 
 validatePrice();
 
-const RoomCapacity = {
-  ONE: '1',
-  TWO: '2',
-  THREE: '3',
-  HUNDRED: '100',
-};
-
-const QuestsCount = {
-  ONE: '1',
-  THREE: '3',
-  ZERO: '0',
-};
-
 const validateGuestsInRoom = () => {
   const roomsValue = roomsSelect.value;
   const guestsValue = guestSelect.value;
 
-  if (roomsValue === RoomCapacity.ONE && guestsValue !== QuestsCount.ONE) {
+  if (roomsValue === RoomCapacity.one && guestsValue !== QuestsCount.one) {
     guestSelect.setCustomValidity('для 1 гостя');
-  } else if (roomsValue === RoomCapacity.TWO && (guestsValue === QuestsCount.THREE || guestsValue === QuestsCount.ZERO)) {
+  } else if (roomsValue === RoomCapacity.two && (guestsValue === QuestsCount.three || guestsValue === QuestsCount.zero)) {
     guestSelect.setCustomValidity('для 1-2 гостей');
-  } else if (roomsValue === RoomCapacity.THREE && guestsValue === QuestsCount.ZERO) {
+  } else if (roomsValue === RoomCapacity.three && guestsValue === QuestsCount.zero) {
     guestSelect.setCustomValidity('для 1-3 гостей');
-  } else if (roomsValue === RoomCapacity.HUNDRED && guestsValue !== QuestsCount.ZERO) {
+  } else if (roomsValue === RoomCapacity.hundred && guestsValue !== QuestsCount.zero) {
     guestSelect.setCustomValidity('не для гостей');
   } else {
     guestSelect.setCustomValidity('');

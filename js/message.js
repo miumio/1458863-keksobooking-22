@@ -1,6 +1,7 @@
 import {resetForm} from './form.js'
 
 const SHOW_TIME = 3000;
+const ESCAPE = 'Escape';
 
 const main = document.querySelector('main');
 const successTemplate = document.querySelector('#success')
@@ -26,7 +27,6 @@ const getAlert = (message) => {
 const showPopup = (template) => {
   const popup = template.cloneNode(true);
   popup.style.zIndex = '1000000';
-
   main.appendChild(popup);
 
   closePopup(popup);
@@ -36,13 +36,17 @@ const closePopup = (message) => {
 
   document.addEventListener('click', () => {
     message.remove();
-  });
+  },
+  {once: true},
+  );
 
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
+  window.addEventListener('keydown', (evt) => {
+    if (evt.key === ESCAPE) {
       message.remove();
     }
-  });
+  },
+  {once: true},
+  );
 };
 
 const showSuccessMessage = () => {

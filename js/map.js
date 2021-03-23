@@ -4,6 +4,8 @@ import {getObject} from './similar-objects-list.js';
 import {getFilteredObjects} from './filter.js'
 
 const SIMILAR_OBJECT_COUNT = 10;
+const MAIN_PIN_WIDTH = 52;
+const PIN_WIDTH = 40;
 
 const CITY_CENTER = {
   lat: '35.68783',
@@ -31,8 +33,8 @@ L.tileLayer(
 
 const MAIN_PIN_ICON = L.icon({
   iconUrl: './img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
+  iconSize: [MAIN_PIN_WIDTH, MAIN_PIN_WIDTH],
+  iconAnchor: [MAIN_PIN_WIDTH/2, MAIN_PIN_WIDTH],
 });
 
 const MAIN_PIN = L.marker(
@@ -52,8 +54,8 @@ MAIN_PIN.on('moveend', (evt) => {
 
 const PIN_ICON = L.icon({
   iconUrl: './img/pin.svg',
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
+  iconSize: [PIN_WIDTH, PIN_WIDTH],
+  iconAnchor: [PIN_WIDTH/2, PIN_WIDTH],
 });
 
 
