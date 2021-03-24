@@ -2,7 +2,7 @@ import {sendData} from './data.js';
 import {showErrorMessage, showSuccessMessage} from './message.js';
 import {resetMap} from './map.js';
 import {filter} from './filter.js';
-import {reInit} from './main.js';
+import {reInit, savedAdverts} from './map.js';
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
@@ -27,7 +27,6 @@ const QuestsCount = {
   ZERO: '0',
 };
 
-const savedAdverts = [];
 
 const form = document.querySelector('.ad-form');
 const fieldsets = document.querySelectorAll('fieldset');
