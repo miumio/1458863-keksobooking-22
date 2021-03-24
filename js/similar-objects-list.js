@@ -34,6 +34,8 @@ const getTextInRooms = (number) => {
 const getTextInGuests = (number) => number === 1 ? 'гостя' : 'гостей';
 
 const getObject = (object) => {
+  const objectFragment = document.createDocumentFragment();
+
   const objectElement = similarObjectTemplate.cloneNode(true);
 
   objectElement.querySelector('.popup__title').textContent = object.offer.title;
@@ -49,7 +51,9 @@ const getObject = (object) => {
   objectElement.querySelector('.popup__photos').insertAdjacentHTML('beforeend', object.offer.photos.map((photo) => `<img src="${photo}" class="popup__photo" width="45" height="40" alt="Фотография жилья"></img>`).join(' '));
   objectElement.querySelector('.popup__avatar').src = object.author.avatar;
 
-  return objectElement;
-}
+  objectFragment.appendChild(objectElement);
+
+  return objectFragment;
+};
 
 export {getObject};

@@ -84,6 +84,31 @@ const PIN_ICON = L.icon({
 
 let pins = [];
 
+// const createPins = (data) => {
+//   pins.forEach((pin) => pin.remove());
+
+//   data
+//     .slice()
+//     .filter(getFilteredObjects)
+//     .slice(0, SIMILAR_OBJECT_COUNT)
+//     .forEach((object) => {
+//       const PIN = L.marker(
+//         {
+//           lat: object.location.lat,
+//           lng: object.location.lng,
+//         },
+//         {
+//           icon: PIN_ICON,
+//         },
+//       );
+//       PIN
+//         .addTo(map)
+//         .bindPopup(getObject(object));
+
+//       pins.push(PIN)
+//     });
+// };
+
 const createPins = (data) => {
   pins.forEach((pin) => pin.remove());
 
@@ -103,7 +128,7 @@ const createPins = (data) => {
       );
       PIN
         .addTo(map)
-        .bindPopup(getObject(object));
+        .bindPopup(getObject(object).cloneNode(true));
 
       pins.push(PIN)
     });

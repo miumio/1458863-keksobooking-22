@@ -159,10 +159,10 @@ const validateGuestsInRoom = () => {
   guestSelect.reportValidity();
 };
 
-const changeRoomsSelect = () => validateGuestsInRoom();
-const changeGuestsSelect = () => validateGuestsInRoom();
-roomsSelect.addEventListener('change', changeRoomsSelect);
-guestSelect.addEventListener('change', changeGuestsSelect);
+const onChangeRoomsSelect = () => validateGuestsInRoom();
+const onChangeGuestsSelect = () => validateGuestsInRoom();
+roomsSelect.addEventListener('change', onChangeRoomsSelect);
+guestSelect.addEventListener('change', onChangeGuestsSelect);
 
 export {activateForm, resetForm, savedAdverts};
 
