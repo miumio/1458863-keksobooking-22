@@ -1,3 +1,5 @@
+const PHOTO_WIDTH = 45;
+
 const RoomsWords = {
   MANY: 'комнат',
   ONE: 'комната',
@@ -44,11 +46,29 @@ const getObject = (object) => {
   objectElement.querySelector('.popup__type').textContent = ObjectsType[object.offer.type.toUpperCase()];
   objectElement.querySelector('.popup__text--capacity').textContent = `${object.offer.rooms} ${getTextInRooms(object.offer.rooms)} для ${object.offer.guests} ${getTextInGuests(object.offer.guests)}`;
   objectElement.querySelector('.popup__text--time').textContent = `Заезд после ${object.offer.checkin}, выезд до ${object.offer.checkout}`;
-  objectElement.querySelector('.popup__features').innerHTML = '';
-  objectElement.querySelector('.popup__features').insertAdjacentHTML('beforeend', object.offer.features.map((feature) => `<li class="popup__feature popup__feature--${feature}"></li>`).join(' '));
+
+  const objectElementFeatures = objectElement.querySelector('.popup__features');
+  objectElementFeatures.innerHTML = '';
+  object.offer.features.forEach((element) => {
+    const container = document.createElement('li');
+    const featureClass = `popup__feature--${element}`;
+    container.classList.add('popup__feature');
+    container.classList.add(featureClass);
+    objectElementFeatures.appendChild(container);
+  });
+
   objectElement.querySelector('.popup__description').textContent = object.offer.description;
-  objectElement.querySelector('.popup__photos').innerHTML = '';
-  objectElement.querySelector('.popup__photos').insertAdjacentHTML('beforeend', object.offer.photos.map((photo) => `<img src="${photo}" class="popup__photo" width="45" height="40" alt="Фотография жилья"></img>`).join(' '));
+
+  const objectPhotos = objectElement.querySelector('.popup__photos');
+  objectPhotos.innerHTML = '';
+  object.offer.photos.forEach((src) => {
+    const photo = document.createElement('img');
+    photo.src = src;
+    photo.classList.add('popup__photo');
+    photo.width = PHOTO_WIDTH;
+    objectPhotos.appendChild(photo);
+  });
+
   objectElement.querySelector('.popup__avatar').src = object.author.avatar;
 
   objectFragment.appendChild(objectElement);
