@@ -1,11 +1,16 @@
 /* global L:readonly */
+/* global _:readonly */
 
 import {getObject} from './similar-objects-list.js';
-import {getFilteredObjects} from './filter.js'
+import {activateForm} from './form.js';
+import {getData} from './data.js';
+import {activateFilter, changeFilter, resetFilter, getFilteredObjects} from './filter.js';
 
+const RERENDER_DELAY = 500;
 const SIMILAR_OBJECT_COUNT = 10;
 const MAIN_PIN_WIDTH = 52;
 const PIN_WIDTH = 40;
+const savedAdverts = [];
 
 const CITY_CENTER = {
   lat: '35.68783',
@@ -18,6 +23,12 @@ adress.setAttribute('readonly', '');
 const map = L.map('map-canvas')
   .on('load', () => {
     adress.value = `${CITY_CENTER.lat}, ${CITY_CENTER.lng}`;
+    getData((objects) => {
+      objects.forEach((item) => {
+        savedAdverts.push(item)
+      });
+      reInit(objects);
+    });
   })
   .setView({
     lat: CITY_CENTER.lat,
@@ -30,6 +41,18 @@ L.tileLayer(
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   },
 ).addTo(map);
+
+const reInit = ((objects) => {
+  createPins(objects);
+  activateForm();
+  activateFilter();
+  resetFilter (
+    () => createPins(objects))
+  changeFilter(
+    _.debounce(
+      () => createPins(objects),
+      RERENDER_DELAY));
+});
 
 const MAIN_PIN_ICON = L.icon({
   iconUrl: './img/main-pin.svg',
@@ -92,4 +115,4 @@ const resetMap = () => {
   adress.value = `${CITY_CENTER.lat}, ${CITY_CENTER.lng}`;
 };
 
-export {resetMap, createPins};
+export {resetMap, createPins, reInit, savedAdverts};
