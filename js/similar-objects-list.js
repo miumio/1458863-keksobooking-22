@@ -47,27 +47,31 @@ const getObject = (object) => {
   objectElement.querySelector('.popup__text--capacity').textContent = `${object.offer.rooms} ${getTextInRooms(object.offer.rooms)} для ${object.offer.guests} ${getTextInGuests(object.offer.guests)}`;
   objectElement.querySelector('.popup__text--time').textContent = `Заезд после ${object.offer.checkin}, выезд до ${object.offer.checkout}`;
 
-  const objectElementFeatures = objectElement.querySelector('.popup__features');
-  objectElementFeatures.innerHTML = '';
+  const objectFeatures = objectElement.querySelector('.popup__features');
+  objectFeatures.innerHTML = '';
+  const featuresFragment = document.createDocumentFragment();
   object.offer.features.forEach((element) => {
     const container = document.createElement('li');
     const featureClass = `popup__feature--${element}`;
     container.classList.add('popup__feature');
     container.classList.add(featureClass);
-    objectElementFeatures.appendChild(container);
+    featuresFragment.appendChild(container);
   });
+  objectFeatures.appendChild(featuresFragment);
 
   objectElement.querySelector('.popup__description').textContent = object.offer.description;
 
   const objectPhotos = objectElement.querySelector('.popup__photos');
   objectPhotos.innerHTML = '';
+  const photoFragment = document.createDocumentFragment();
   object.offer.photos.forEach((src) => {
     const photo = document.createElement('img');
     photo.src = src;
     photo.classList.add('popup__photo');
     photo.width = PHOTO_WIDTH;
-    objectPhotos.appendChild(photo);
+    photoFragment.appendChild(photo);
   });
+  objectPhotos.appendChild(photoFragment);
 
   objectElement.querySelector('.popup__avatar').src = object.author.avatar;
 
